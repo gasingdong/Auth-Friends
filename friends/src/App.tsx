@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Redirect } from 'react-router-dom';
 import './App.css';
 import axios from 'axios';
 import LoginForm from './components/LoginForm';
@@ -15,6 +15,7 @@ const App = (): React.ReactElement => {
           password: 'i<3Lambd4',
         });
         console.log(token);
+        localStorage.setItem('userToken', token.data.payload);
       } catch (error) {
         console.log(error);
       }
@@ -27,7 +28,13 @@ const App = (): React.ReactElement => {
     <div className="App">
       <Route
         path="/login"
-        render={(): React.ReactElement => <LoginForm onLogin={onLogin} />}
+        render={(): React.ReactElement =>
+          localStorage.getItem('userToken') ? (
+            <Redirect to="/" />
+          ) : (
+            <LoginForm onLogin={onLogin} />
+          )
+        }
       />
       <PrivateRoute path="/" exact component={FriendsList} />
     </div>
