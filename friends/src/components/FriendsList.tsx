@@ -64,7 +64,7 @@ const FriendsList = ({ history }: RouteComponentProps): React.ReactElement => {
 
   return (
     <div className="friends-list">
-      <button type="button" onClick={onLogout}>
+      <button type="button" onClick={onLogout} className="button is-primary">
         Logout
       </button>
       <AddForm onAdd={onAdd} />

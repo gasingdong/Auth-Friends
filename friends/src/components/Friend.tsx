@@ -9,14 +9,18 @@ interface FriendProps {
 const Friend = ({ friend, onDelete }: FriendProps): React.ReactElement => {
   const { name, age, email, id } = friend;
   return (
-    <div className="friends-list__friend">
-      <h2>
-        {name} - {age}
-      </h2>
-      <h3>{email}</h3>
-      <button type="button" onClick={(): void => onDelete(id)}>
-        Remove Friend
-      </button>
+    <div className="friends-list__friend block">
+      <span>
+        <h1 className="title">
+          {name} - {age}
+        </h1>
+        <h3>{email}</h3>
+        <button
+          type="button"
+          onClick={(): void => onDelete(id)}
+          className="delete is-small"
+        />
+      </span>
     </div>
   );
 };
