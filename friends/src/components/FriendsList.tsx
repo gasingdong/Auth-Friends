@@ -30,7 +30,7 @@ const FriendsList = ({ history }: RouteComponentProps): React.ReactElement => {
   }, []);
 
   const onAdd = (friend: FriendType): void => {
-    const getCred = async (): Promise<void> => {
+    const getNewFriends = async (): Promise<void> => {
       try {
         const response = await axiosWithAuth().post(
           'http://localhost:5000/api/friends',
@@ -43,7 +43,23 @@ const FriendsList = ({ history }: RouteComponentProps): React.ReactElement => {
       }
     };
 
-    getCred();
+    getNewFriends();
+  };
+
+  const onDelete = (id: number): void => {
+    const getNewFriends = async (): Promise<void> => {
+      try {
+        const response = await axiosWithAuth().delete(
+          `http://localhost:5000/api/friends/${id}`
+        );
+        console.log(response);
+        getFriends();
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    getNewFriends();
   };
 
   return (
@@ -55,7 +71,7 @@ const FriendsList = ({ history }: RouteComponentProps): React.ReactElement => {
       <h1>Friends List</h1>
       {friends.map(
         (friend): React.ReactElement => (
-          <Friend key={friend.id} friend={friend} />
+          <Friend key={friend.id} friend={friend} onDelete={onDelete} />
         )
       )}
     </div>
