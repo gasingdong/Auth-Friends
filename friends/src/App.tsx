@@ -4,6 +4,7 @@ import './App.css';
 import axios from 'axios';
 import LoginForm from './components/LoginForm';
 import FriendsList from './components/FriendsList';
+import PrivateRoute from './components/PrivateRoute';
 
 const App = (): React.ReactElement => {
   const onLogin = (username: string, password: string): void => {
@@ -25,11 +26,10 @@ const App = (): React.ReactElement => {
   return (
     <div className="App">
       <Route
-        path="/"
-        exact
+        path="/login"
         render={(): React.ReactElement => <LoginForm onLogin={onLogin} />}
       />
-      <FriendsList />
+      <PrivateRoute path="/" exact component={FriendsList} />
     </div>
   );
 };
