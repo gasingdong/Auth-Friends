@@ -23,7 +23,8 @@ module.exports = {
     "console": "readonly",
 	  "document": "readonly",
 	  "window": "readonly",
-	  "it": "readonly",
+    "it": "readonly",
+    "localStorage": "readonly",
   },
   "settings": {
 	"react": {
