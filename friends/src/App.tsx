@@ -3,6 +3,7 @@ import { Route } from 'react-router-dom';
 import './App.css';
 import axios from 'axios';
 import LoginForm from './components/LoginForm';
+import FriendsList from './components/FriendsList';
 
 const App = (): React.ReactElement => {
   const onLogin = (username: string, password: string): void => {
@@ -28,6 +29,7 @@ const App = (): React.ReactElement => {
         exact
         render={(): React.ReactElement => <LoginForm onLogin={onLogin} />}
       />
+      <FriendsList />
     </div>
   );
 };
