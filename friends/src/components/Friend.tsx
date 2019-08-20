@@ -1,9 +1,18 @@
 import React from 'react';
+import { FriendType } from '../types';
 
-const Friend = (): React.ReactElement => {
+interface FriendProps {
+  friend: FriendType;
+}
+
+const Friend = ({ friend }: FriendProps): React.ReactElement => {
+  const { name, age, email } = friend;
   return (
     <div className="friends-list__friend">
-      <p>Friend</p>
+      <h2>
+        {name} - {age}
+      </h2>
+      <h3>{email}</h3>
     </div>
   );
 };
