@@ -23,6 +23,7 @@ module.exports = {
     "console": "readonly",
 	  "document": "readonly",
 	  "window": "readonly",
+	  "it": "readonly",
   },
   "settings": {
 	"react": {
