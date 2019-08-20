@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
+import axios from 'axios';
+import { RouteComponentProps } from 'react-router-dom';
 
-interface LoginFormProps {
-  onLogin: (username: string, password: string) => void;
-}
-
-const LoginForm = ({ onLogin }: LoginFormProps): React.ReactElement => {
+const LoginForm = ({ history }: RouteComponentProps): React.ReactElement => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
@@ -16,9 +14,27 @@ const LoginForm = ({ onLogin }: LoginFormProps): React.ReactElement => {
     setPassword(event.currentTarget.value);
   };
 
+  const onLogin = (): void => {
+    const getCred = async (): Promise<void> => {
+      try {
+        const token = await axios.post('http://localhost:5000/api/login', {
+          username: 'Lambda School',
+          password: 'i<3Lambd4',
+        });
+        console.log(token);
+        localStorage.setItem('userToken', token.data.payload);
+        history.push('/');
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    getCred();
+  };
+
   const submitHandler = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
-    onLogin(username, password);
+    onLogin();
     setUsername('');
     setPassword('');
   };

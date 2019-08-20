@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { RouteComponentProps } from 'react-router-dom';
 import Friend from './Friend';
 import axiosWithAuth from '../utils/axiosWithAuth';
 import { FriendType } from '../types';
 
-const FriendsList = (): React.ReactElement => {
+const FriendsList = ({ history }: RouteComponentProps): React.ReactElement => {
   const [friends, setFriends] = useState<FriendType[]>([]);
 
   const getFriends = async (): Promise<void> => {
@@ -18,12 +19,20 @@ const FriendsList = (): React.ReactElement => {
     }
   };
 
+  const onLogout = (): void => {
+    localStorage.removeItem('userToken');
+    history.push('/login');
+  };
+
   useEffect((): void => {
     getFriends();
   }, []);
 
   return (
     <div className="friends-list">
+      <button type="button" onClick={onLogout}>
+        Logout
+      </button>
       <h1>Friends List</h1>
       {friends.map(
         (friend): React.ReactElement => (
