@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 
-const LoginForm = (): React.ReactElement => {
+interface LoginFormProps {
+  onLogin: (username: string, password: string) => void;
+}
+
+const LoginForm = ({ onLogin }: LoginFormProps): React.ReactElement => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
@@ -12,9 +16,16 @@ const LoginForm = (): React.ReactElement => {
     setPassword(event.currentTarget.value);
   };
 
+  const submitHandler = (event: React.FormEvent<HTMLFormElement>): void => {
+    event.preventDefault();
+    onLogin(username, password);
+    setUsername('');
+    setPassword('');
+  };
+
   return (
     <div className="form">
-      <form>
+      <form onSubmit={submitHandler}>
         <label htmlFor="username">
           Username
           <input
@@ -38,7 +49,7 @@ const LoginForm = (): React.ReactElement => {
             onChange={changePassword}
           />
         </label>
-        <button type="submit">Submit</button>
+        <button type="submit">Login</button>
       </form>
     </div>
   );
